@@ -25,10 +25,14 @@ class Test{
         }
         int GetTestSub01(TestSub* pTestSub){
             pTestSub = m_pTestSub;
+            std::cout << "GetTestSub01 : pTestSub : " << pTestSub << "\n";
+            std::cout << "GetTestSub01 : m_pTestSub : " << m_pTestSub << "\n";
             return 0;
         }
         int GetTestSub02(TestSub*& pTestSub){
             pTestSub = m_pTestSub;
+            std::cout << "GetTestSub02 : pTestSub : " << pTestSub << "\n";
+            std::cout << "GetTestSub02 : m_pTestSub : " << m_pTestSub << "\n";
             return 0;
         }
         int ClearTestSub(void){
@@ -48,7 +52,7 @@ int main(){
 
     oTest01.GetTestSub01(pTestSub01);
     if(pTestSub01 != NULL){
-        std::cout << "before ClearTestSub : pTestSub01 is not NULL : " << *pTestSub01 << "\n";
+        std::cout << "before ClearTestSub : pTestSub01 is not NULL : " << pTestSub01 << "\n";
         pTestSub01->sub(pTestMap02);
     }
     else{
@@ -57,7 +61,7 @@ int main(){
 
     oTest01.GetTestSub02(pTestSub02);
     if(pTestSub02 != NULL){
-        std::cout << "before ClearTestSub : pTestSub02 is not NULL : " << *pTestSub02 << "\n";
+        std::cout << "before ClearTestSub : pTestSub02 is not NULL : " << pTestSub02 << "\n";
         pTestSub02->sub(pTestMap02);
     }
     else{
@@ -66,14 +70,14 @@ int main(){
 
     oTest01.ClearTestSub();
     if(pTestSub01 != NULL){
-        std::cout << "after ClearTestSub : pTestSub01 is not NULL : " << *pTestSub01 << "\n";
+        std::cout << "after ClearTestSub : pTestSub01 is not NULL : " << pTestSub01 << "\n";
         pTestSub01->sub(pTestMap02);
     }
     else{
         std::cout << "after ClearTestSub : pTestSub01 is NULL\n";
     }
     if(pTestSub02 != NULL){
-        std::cout << "after ClearTestSub : pTestSub02 is not NULL : " << *pTestSub02 << "\n";
+        std::cout << "after ClearTestSub : pTestSub02 is not NULL : " << pTestSub02 << "\n";
         pTestSub02->sub(pTestMap02);
     }
     else{
