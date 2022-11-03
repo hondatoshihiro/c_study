@@ -39,32 +39,28 @@ void* thread_main1(void* ptr){
     //    sleep(10);
     //}
     while(1){
-        //TODO 戻り値の確認
         errno=0;
         msgrcv(pStr->threadqid, &msgData, MsgSize, 0, 0);
         if(msgData.msgType==GetDataType1){
             std::cout << "thread_main1 msgrcv from main dataget_msg\n";
             sleep(10);
-            //TODO 戻り値の確認
             errno=0;
             msgsnd(pStr->mainqid, &msgData, MsgSize, 0);
-            std::cout << "thread_main1 msgsnd to main dataget_msg\n";
+            std::cout << "thread_main1 msgsnd to main dataget_msg errno:" << errno << "\n";
         }
         else if(msgData.msgType==FinishProcType){
             std::cout << "thread_main1 msgrcv from main finishproc_msg\n";
-            //TODO 戻り値の確認
             errno=0;
             msgsnd(pStr->mainqid, &msgData, MsgSize, 0);
-            std::cout << "thread_main1 msgsnd to main finishproc_msg\n";
+            std::cout << "thread_main1 msgsnd to main finishproc_msg errno:" << errno << "\n";;
             break;
         }
         else{
             std::cout << "thread_main1 msgrcv from main other!!\n";
-            //TODO 戻り値の確認
             msgData.msgType=ErrDataType;
             errno=0;
             msgsnd(pStr->mainqid, &msgData, MsgSize, 0);
-            std::cout << "thread_main1 msgsnd to main err_msg!!\n";
+            std::cout << "thread_main1 msgsnd to main err_msg!! errno:" << errno << "\n";;
             break;
         }
     }
@@ -80,32 +76,28 @@ void* thread_main2(void* ptr){
     //    sleep(10);
     //}
     while(1){
-        //TODO 戻り値の確認
         errno=0;
         msgrcv(pStr->threadqid, &msgData, MsgSize, 0, 0);
         if(msgData.msgType==GetDataType2){
             std::cout << "thread_main2 msgrcv from main dataget_msg\n";
             sleep(10);
-            //TODO 戻り値の確認
             errno=0;
             msgsnd(pStr->mainqid, &msgData, MsgSize, 0);
-            std::cout << "thread_main2 msgsnd to main dataget_msg\n";
+            std::cout << "thread_main2 msgsnd to main dataget_msg errno:" << errno << "\n";
         }
         else if(msgData.msgType==FinishProcType){
             std::cout << "thread_main2 msgrcv from main finishproc_msg\n";
-            //TODO 戻り値の確認
             errno=0;
             msgsnd(pStr->mainqid, &msgData, MsgSize, 0);
-            std::cout << "thread_main2 msgsnd to main finishproc_msg\n";
+            std::cout << "thread_main2 msgsnd to main finishproc_msg errno:" << errno << "\n";
             break;
         }
         else{
             std::cout << "thread_main2 msgrcv from main other!!\n";
-            //TODO 戻り値の確認
             msgData.msgType=ErrDataType;
             errno=0;
             msgsnd(pStr->mainqid, &msgData, MsgSize, 0);
-            std::cout << "thread_main2 msgsnd to main err_msg!!\n";
+            std::cout << "thread_main2 msgsnd to main err_msg!! errno:" << errno << "\n";
             break;
         }
     }
@@ -157,32 +149,28 @@ int main(){
     for(int sendCnt1=0; sendCnt1<SendNum; ++sendCnt1){
         msgData1.msgType=GetDataType1;
         memset(msgData1.msgdata,0x00,MsgSize);
-        //TODO 戻り値の確認
         errno=0;
         iRet = msgsnd(threadqid1, &msgData1, MsgSize, 0);
-        std::cout << "msgsnd to thread_main1 dataget_msg no." << sendCnt1 << "\n";
+        std::cout << "msgsnd to thread_main1 dataget_msg no." << sendCnt1 << ",errono:" << errno << "\n";
     }
     msgData1.msgType=FinishProcType;
     memset(msgData1.msgdata,0x00,MsgSize);
-    //TODO 戻り値の確認
     errno=0;
     iRet = msgsnd(threadqid1, &msgData1, MsgSize, 0);
-    std::cout << "msgsnd to thread_main1 finishproc_msg\n";
+    std::cout << "msgsnd to thread_main1 finishproc_msg ,errno:" << errno << "\n";
 
     for(int sendCnt2=0; sendCnt2<SendNum; ++sendCnt2){
         msgData2.msgType=GetDataType2;
         memset(msgData2.msgdata,0x00,MsgSize);
-        //TODO 戻り値の確認
         errno=0;
         iRet = msgsnd(threadqid2, &msgData2, MsgSize, 0);
-        std::cout << "msgsnd to thread_main2 dataget_msg no." << sendCnt2 << "\n";
+        std::cout << "msgsnd to thread_main2 dataget_msg no." << sendCnt2 << ",errono:" << errno <<  "\n";
     }
     msgData2.msgType=FinishProcType;
     memset(msgData2.msgdata,0x00,MsgSize);
-    //TODO 戻り値の確認
     errno=0;
     iRet = msgsnd(threadqid2, &msgData2, MsgSize, 0);
-    std::cout << "msgsnd to thread_main2 finishproc_msg\n";
+    std::cout << "msgsnd to thread_main2 finishproc_msg ,errono:" << errno << "\n";
 
     //メッセージ受信ループ
     int iGetDataCnt1=0;
@@ -190,24 +178,23 @@ int main(){
     int iFinishCnt=0;
     int iErrCnt=0;
     while(1){
-        //TODO 戻り値の確認 NO_WAIT指定
         errno=0;
         msgrcv(mainqid, &msgData, MsgSize, 0, 0);
         if(msgData.msgType==GetDataType1){
             iGetDataCnt1++;
-            std::cout << "msgrcv from thread_main1 dataget_msg no." << iGetDataCnt1 << "\n";
+            std::cout << "msgrcv from thread_main1 dataget_msg no." << iGetDataCnt1 << ",errono;" << errno << "\n";
         }
         else if(msgData.msgType==GetDataType2){
             iGetDataCnt2++;
-            std::cout << "msgrcv from thread_main2 dataget_msg no." << iGetDataCnt1 << "\n";
+            std::cout << "msgrcv from thread_main2 dataget_msg no." << iGetDataCnt1 << ",errono;" << errno << "\n";
         }
         else if(msgData.msgType==FinishProcType){
             iFinishCnt++;
-            std::cout << "msgrcv from thread_main? finishproc no." << iFinishCnt << "\n";
+            std::cout << "msgrcv from thread_main? finishproc no." << iFinishCnt << ",errono;" << errno << "\n";
         }
         else{
             iErrCnt++;
-            std::cout << "msgrcv from thread_main? err_msg no." << iErrCnt << "\n";
+            std::cout << "msgrcv from thread_main? err_msg no." << iErrCnt << ",errono;" << errno << "\n";
         }
         if(iFinishCnt==2
          || (iFinishCnt==1 && iErrCnt==1)
