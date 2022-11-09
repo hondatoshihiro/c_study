@@ -1,3 +1,7 @@
+//ビルド方法
+//g++ -pthread study02_03.cpp
+//デバッグ情報着き
+//g++ -pthread -g study02_03.cpp
 #include <stdio.h>
 #include <pthread.h>
 #include <unistd.h>

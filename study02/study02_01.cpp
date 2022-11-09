@@ -14,11 +14,11 @@ void* thread_main(void* ptr){
     int i=0;
     TestStr* pStr = (TestStr*)ptr;
     for(int i=0; i<10; ++i){
-        //std::cout << "thread_main No:" << pStr->j << ",pthread_mutex_lock" << "\n";
-        //int ret = pthread_mutex_lock(pStr->pmutex);
-        //std::cout << "thread_main No:" << pStr->j << ",pthread_mutex_lock ret:" << ret << "\n";
+        std::cout << "thread_main No:" << pStr->j << ",pthread_mutex_lock" << "\n";
+        int ret = pthread_mutex_lock(pStr->pmutex);
+        std::cout << "thread_main No:" << pStr->j << ",pthread_mutex_lock ret:" << ret << "\n";
         std::cout << "thread_main No:" << pStr->j << ",loop cnt:" << i << "\n";
-        //ret = pthread_mutex_unlock(pStr->pmutex);
+        ret = pthread_mutex_unlock(pStr->pmutex);
         sleep(10);
     }
     return NULL;
@@ -27,7 +27,7 @@ void* thread_main(void* ptr){
 int main(){
 
     pthread_mutex_t mutex;
-
+    pthread_mutex_init(&mutex, NULL);
     pthread_t threadArray[ThreadNum];
     struct TestStr testStrArray[ThreadNum];
 
