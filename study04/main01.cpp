@@ -9,6 +9,8 @@
 //実行:>./a.out
 int main(){
     const long MAX_CNT = 100000;
+    //const long MAX_CNT = 1000000;
+    //const long MAX_CNT = 10000000;
 
     long lSum = 0;
     std::chrono::system_clock::time_point start;
